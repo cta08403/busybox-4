@@ -1,0 +1,32 @@
+#!/bin/sh
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:$PATH
+runlevel=S
+prevlevel=N
+umask 022
+export PATH runlevel prevlevel
+
+ifconfig eth0 172.10.11.156
+mount -a
+mkdir /dev/pts
+mount -t devpts devpts /dev/pts
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s
+syslogd
+/bin/hostname Linux
+
+echo "                        " > /dev/tty1
+echo "Welcome to my Linux!" > /dev/tty1
+echo "                        " > /dev/tty1
+echo $(date +%F" "%H:%M:%S) > /dev/tty1
+echo "                        " > /dev/tty1
+echo "Starting networking..." > /dev/tty1
+echo "                        " > /dev/tty1
+echo -n "IP address " > /dev/tty1 
+echo $(ifconfig eth0 | grep "inet addr" | awk '{print $2}' | awk -F: '{print $2}') > /dev/tty1
+echo "                        " > /dev/tty1
+echo "Please login by ssh,user name is \"root\",password is \"jhg\"" > /dev/tty1
+
+#start sshd server usr:root password:jhg
+/sbin/sshd &
+/usr/bin/led &
