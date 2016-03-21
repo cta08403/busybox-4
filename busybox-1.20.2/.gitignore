@@ -5,8 +5,8 @@
 *.o
 *.o.*
 *.a
-*.s
-Kbuild
+!*.s
+!Kbuild
 !Config.in
 
 #
