@@ -14,7 +14,7 @@ echo /sbin/mdev > /proc/sys/kernel/hotplug
 mdev -s
 syslogd
 /bin/hostname Linux
-
+mount /dev/mmcblk0p1 /sdcard/
 echo "                        " > /dev/tty1
 echo "Welcome to my Linux!" > /dev/tty1
 echo "                        " > /dev/tty1
@@ -25,7 +25,7 @@ echo "                        " > /dev/tty1
 echo -n "IP address " > /dev/tty1 
 echo $(ifconfig eth0 | grep "inet addr" | awk '{print $2}' | awk -F: '{print $2}') > /dev/tty1
 echo "                        " > /dev/tty1
-echo "Please login by ssh,user name is \"root\",password is \"jhg\"" > /dev/tty1
+echo "Login by ssh,user:root,password:jhg > /dev/tty1
 
 #start sshd server usr:root password:jhg
 /sbin/sshd &
