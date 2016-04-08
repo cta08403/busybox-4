@@ -6,7 +6,6 @@ prevlevel=N
 umask 022
 export PATH runlevel prevlevel
 
-ifconfig eth0 172.10.11.156
 /etc/init.d/ifconfig-eth0
 
 mount -a
@@ -15,7 +14,7 @@ mount -t devpts devpts /dev/pts
 echo /sbin/mdev > /proc/sys/kernel/hotplug
 mdev -s
 syslogd
-/bin/hostname Linux
+
 mount /dev/mmcblk0p1 /sdcard/
 echo "                        " > /dev/tty1
 echo "Welcome to my Linux!" > /dev/tty1
