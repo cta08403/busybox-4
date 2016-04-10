@@ -7,6 +7,12 @@ umask 022
 export PATH runlevel prevlevel
 
 /etc/init.d/ifconfig-eth0
+hostname Linux
+
+mkdir -p /var/empty
+mkdir -p /var/run
+mkdir -p /var/log
+chown -R root /var
 
 mount -a
 mkdir /dev/pts
