@@ -8,6 +8,7 @@ export PATH runlevel prevlevel
 
 /etc/init.d/ifconfig-eth0
 hostname Linux
+/etc/init.d/alsaconf
 
 mkdir -p /var/empty
 mkdir -p /var/run
