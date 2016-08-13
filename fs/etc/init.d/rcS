@@ -1,0 +1,41 @@
+#!/bin/sh
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin:$PATH
+runlevel=S
+prevlevel=N
+umask 022
+export PATH runlevel prevlevel
+
+/etc/init.d/ifconfig-eth0
+hostname Linux
+/etc/init.d/alsaconf
+
+mkdir -p /var/empty
+mkdir -p /var/run
+mkdir -p /var/log
+chown -R root /var
+
+mount -a
+mkdir /dev/pts
+mount -t devpts devpts /dev/pts
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+mdev -s
+syslogd
+
+mount /dev/mmcblk0p1 /sdcard/
+echo "                        " > /dev/tty1
+echo "Welcome to my Linux!" > /dev/tty1
+echo "                        " > /dev/tty1
+echo $(date +%F" "%H:%M:%S) > /dev/tty1
+echo "                        " > /dev/tty1
+echo "Starting networking..." > /dev/tty1
+echo "                        " > /dev/tty1
+echo -n "IP address " > /dev/tty1 
+echo $(ifconfig eth0 | grep "inet addr" | awk '{print $2}' | awk -F: '{print $2}') > /dev/tty1
+echo "                        " > /dev/tty1
+echo "Login by ssh,user:root,password:jhg" > /dev/tty1
+
+#start sshd server usr:root password:jhg
+/sbin/sshd &
+/usr/bin/led &
+crond &
